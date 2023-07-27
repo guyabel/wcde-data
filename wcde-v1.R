@@ -5,6 +5,8 @@ library(tidyverse)
 library(readxl)
 library(fs)
 
+# downloaded old repo from
+# https://github.com/guyabel/wcde-shiny/tree/0833c7fe7de5c0758ce6d5682e91b1537eb76010
 dimen <- read_excel("C:\\Users\\Guy\\Downloads\\wcde-shiny-0833c7fe7de5c0758ce6d5682e91b1537eb76010\\wcde-shiny-0833c7fe7de5c0758ce6d5682e91b1537eb76010/meta/dimension.xlsx")
 ind <- read_excel("C:\\Users\\Guy\\Downloads\\wcde-shiny-0833c7fe7de5c0758ce6d5682e91b1537eb76010\\wcde-shiny-0833c7fe7de5c0758ce6d5682e91b1537eb76010/meta/indicator.xlsx")
 
