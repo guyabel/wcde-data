@@ -1,7 +1,6 @@
 ##
+## wcde-v1: single .rds files from old repo
 ## wcde-v2: single .rds files from wcde-shiny
-## wcde-v1: single .rds files from IIASA server
-## fume: single .rds files from zendo
 ##
 
 library(tidyverse)

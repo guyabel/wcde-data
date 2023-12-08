@@ -1,4 +1,9 @@
 ##
+## wcde-v1: single .rds files from old repo
+## wcde-v2: single .rds files from wcde-shiny
+##
+
+##
 ## convert data from samir for app
 ##
 library(tidyverse)

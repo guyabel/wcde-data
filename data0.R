@@ -1,7 +1,6 @@
 ##
-## data0: build pop- data sets wcde
-## data1: build pop- data sets fume
-## data2: build batch data
+## data0: build pop- data sets wcde (all versions)
+## data1: build batch data (all versions)
 ##
 
 library(tidyverse)
@@ -150,5 +149,6 @@ for(i in 1:nrow(e0)){
 ## check no 0MB file sizes
 ##
 library(fs)
-dir_info(path = "./wcde-v2-single/", recurse = TRUE, type = "file") %>%
+dir_info(path = "./wcde-v1-single/", recurse = TRUE, type = "file") %>%
+# dir_info(path = "./wcde-v2-single/", recurse = TRUE, type = "file") %>%
   arrange(size)
