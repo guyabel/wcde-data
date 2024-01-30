@@ -18,8 +18,8 @@ d <- dir_ls(path = "../wcde-shiny/", recurse = 2) %>%
            str_detect(string = file, pattern = "df1") ~ 2,
            str_detect(string = file, pattern = "df2") ~ 1,
            str_detect(string = file, pattern = "df3") ~ 3,
-           str_detect(string = file, pattern = "df4") ~ 21,
-           str_detect(string = file, pattern = "df5") ~ 22,
+           str_detect(string = file, pattern = "df4") ~ 22,
+           str_detect(string = file, pattern = "df5") ~ 23,
          ),
          dest = paste0("./wcde-v2-single/",s,"/",i),
          dest_path_dir = path_dir(dest))

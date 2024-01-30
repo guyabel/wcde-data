@@ -16,6 +16,7 @@ e <- dir_ls(recurse = 3) %>%
   filter(str_detect(string = file, pattern = "epop"),
          str_detect(string = file, pattern = "rds")) %>%
   filter(str_detect(string = file, pattern = "wcde-")) %>%
+  filter(str_detect(string = file, pattern = "wcde-v3")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
@@ -32,9 +33,12 @@ p <- dir_ls(recurse = 3) %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = "pop"),
          str_detect(string = file, pattern = "rds"),
+         str_detect(string = file, pattern = "prop", negate = TRUE),
          str_detect(string = file, pattern = "bpop", negate = TRUE),
          str_detect(string = file, pattern = "epop", negate = TRUE),
-         str_detect(string = file, pattern = "pop-", negate = TRUE)) %>%
+         str_detect(string = file, pattern = "pop-", negate = TRUE),
+         str_detect(string = file, pattern = "batch", negate = TRUE)) %>%
+  filter(str_detect(string = file, pattern = "v3")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
@@ -46,6 +50,8 @@ p <- dir_ls(recurse = 3) %>%
   group_by(version, s, path) %>%
   summarize(d1 = list(reduce(d0, bind_cols)))
 
+# p <- p %>%
+#   mutate(n = map_dbl(.x = d0, .f = ~nrow(.x)))
 
 ##
 ## create pop-directories
@@ -149,6 +155,7 @@ for(i in 1:nrow(e0)){
 ## check no 0MB file sizes
 ##
 library(fs)
-dir_info(path = "./wcde-v1-single/", recurse = TRUE, type = "file") %>%
+# dir_info(path = "./wcde-v1-single/", recurse = TRUE, type = "file") %>%
 # dir_info(path = "./wcde-v2-single/", recurse = TRUE, type = "file") %>%
+dir_info(path = "./wcde-v3-single/", recurse = TRUE, type = "file") %>%
   arrange(size)

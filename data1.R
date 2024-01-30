@@ -6,6 +6,8 @@
 library(tidyverse)
 library(fs)
 
+ind <- read_excel("../wcde-shiny/meta/indicator.xlsx")
+
 d <- dir_ls(recurse = 3) %>%
   as_tibble() %>%
   rename(file = 1) %>%
@@ -22,6 +24,8 @@ d0 <- d %>%
   select(-c, -file) %>%
   distinct()
 
+d0 <- d0 %>%
+  filter(v == "wcde-v3-single")
 ##
 ## create batch directories
 ##
@@ -56,8 +60,10 @@ for(i in 1:nrow(d0)){
 
   cc <- str_which(string = names(x0), pattern = "\\d{1,}")
 
-  ii <- wcde::wic_indicators %>%
-    filter(indicator == d0$i[i])
+  # ii <- wcde::wic_indicators %>%
+  #   filter(indicator == d0$i[i])
+  ii <- ind %>%
+    filter(name == d0$i[i])
   col_lab <- d0$i[i]
 
   if(nrow(ii) == 0){
@@ -82,7 +88,7 @@ for(i in 1:nrow(d0)){
     rename(country_code = isono) %>%
     {if(ii$edu) rename(., education=edu) else .} %>%
     {if(ii$edu) . else select(., -edu)} %>%
-    {if(any(ii$age, ii$bage, ii$sage)) . else select(., -age)} %>%
+    {if(sum(ii$age, ii$bage, ii$sage) > 0) . else select(., -age)} %>%
     {if(ii$sex) . else select(., -sex)} %>%
     {if(ii$period) . else select(., -period)} %>%
     {if(!ii$period) . else select(., -year)} %>%

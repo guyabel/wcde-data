@@ -50,9 +50,10 @@ d <- dir_ls(path = "C:\\Users\\Guy\\Downloads\\wcde-shiny-0833c7fe7de5c0758ce6d5
          scenario = str_sub(string = file, start = 3, end = 3),
          indicator = str_sub(string = file, start = 4),
          indicator = str_sub(string = indicator, end = -5),
+         # changed when scenario numbers when working with wcde-v3
          scenario = case_when(
-           scenario == 6 ~ 21,
-           scenario == 7 ~ 22,
+           scenario == 6 ~ 20,
+           scenario == 7 ~ 21,
            TRUE ~ as.numeric(scenario)
          )) %>%
   filter(indicator %in% ind$name)
