@@ -71,7 +71,9 @@ for(i in 1:nrow(p)){
 ## pop (no edu)
 ##
 
-p0 <- p %>%
+p <- p %>%
+  # either grouping or fs path is killing speed
+  mutate(path = as.character(path)) %>%
   group_by(version, s, path) %>%
   mutate(total = map(.x = d1, .f = function(d = .x){
     d %>%
@@ -88,33 +90,41 @@ p0 <- p %>%
   mutate(`age-sex` = map(.x = d1, .f = function(d = .x){
     d %>%
       relocate(ncol(.) - 0:7) %>%
-      filter(age != "All", sex != "Both", edu == "Total")}))
+      filter(age != "All", sex != "Both", edu == "Total")})) %>%
+  select(-d1) %>%
+  pivot_longer(cols = -(1:3), names_to = "type", values_to = "d") %>%
+  ungroup()
 
 
-# this was so slow. not sure why
-for(i in 1:nrow(p0)){
-  message(p0$path[i])
-  for(k in 1:4){
-    kk <- names(p0)[5:8][k]
-    message(kk)
-    d <- p0[i,k+4][[1]][[1]]
-    for(j in 1:ncol(d)){
-      gc()
-      f <- paste0(p0$path[i], "/pop-", kk , "/",names(d)[j], ".rds")
-      d %>%
-        select(j) %>%
-        saveRDS(file = f)
-    }
+# # divide p0. very slow looping through nested tibbles
+# p1 <- p0 %>%
+#   select(-d) %>%
+#   ungroup() %>%
+#
+# p2 <- p0$d
+
+for(i in 1:nrow(p)){
+  gc()
+  d <- p$d[i][[1]]
+  pp <- paste0(p$path[i], "/pop-", p$type[i])
+  message(pp)
+  for(j in 1:ncol(d)){
+    f <- paste0(pp, "/", names(d)[j], ".rds")
+    d %>%
+      select(j) %>%
+      saveRDS(file = f)
+    if(j %% 50 == 0 | j == ncol(d))
+      print(j)
   }
 }
-
 
 
 ##
 ## pop-edattain
 ##
 
-e0 <- e %>%
+e <- e %>%
+  mutate(path = as.character(path)) %>%
   group_by(version, s, path) %>%
   mutate(edattain = map(.x = d1, .f = function(d = .x){
     d %>%
@@ -131,22 +141,24 @@ e0 <- e %>%
   mutate(`age-sex-edattain` = map(.x = d1, .f = function(d = .x){
     d %>%
       relocate(ncol(.) - 0:7) %>%
-      filter(age != "All", sex != "Both", edu != "Total")}))
+      filter(age != "All", sex != "Both", edu != "Total")})) %>%
+  select(-d1) %>%
+  pivot_longer(cols = -(1:3), names_to = "type", values_to = "d") %>%
+  ungroup()
 
 
-for(i in 1:nrow(e0)){
-  message(e0$path[i])
-  for(k in 1:4){
-    kk <- names(e0)[5:8][k]
-    message(kk)
-    d <- e0[i,k+4][[1]][[1]]
-    for(j in 1:ncol(d)){
-      gc()
-      f <- paste0(e0$path[i], "/pop-", kk , "/",names(d)[j], ".rds")
-      d %>%
-        select(j) %>%
-        saveRDS(file = f)
-    }
+for(i in 1:nrow(p)){
+  gc()
+  d <- e$d[i][[1]]
+  pp <- paste0(e$path[i], "/pop-", e$type[i])
+  message(pp)
+  for(j in 1:ncol(d)){
+    f <- paste0(pp, "/", names(d)[j], ".rds")
+    d %>%
+      select(j) %>%
+      saveRDS(file = f)
+    if(j %% 50 == 0 | j == ncol(d))
+      print(j)
   }
 }
 

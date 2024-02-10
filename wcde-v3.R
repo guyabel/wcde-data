@@ -1,7 +1,7 @@
 ##
 ## wcde-v1: single .rds files from old repo
 ## wcde-v2: single .rds files from wcde-shiny
-## wcde-v3: single .rds files from data-raw
+## wcde-v3: single .rds files from dropbox zip
 ##
 
 library(tidyverse)

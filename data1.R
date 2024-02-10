@@ -5,6 +5,7 @@
 
 library(tidyverse)
 library(fs)
+library(readxl)
 
 ind <- read_excel("../wcde-shiny/meta/indicator.xlsx")
 
