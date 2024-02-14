@@ -98,6 +98,10 @@ for(i in 1:nrow(d)){
     d0 <- d0 %>%
       rename(ageno = age)
   }
+  # if(i0$name %in% c("tfr", "etfr", "asfr", "macb", "easfr")){
+  #   d0 <- d0 %>%
+  #     mutate(sexno = 2)
+  # }
 
   d0 <- d0 %>%
     {if(i0$sage == 1) rename(., ageno = sageno) else .} %>%

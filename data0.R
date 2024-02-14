@@ -14,7 +14,8 @@ e <- dir_ls(recurse = 3) %>%
   as_tibble() %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = "epop"),
-         str_detect(string = file, pattern = "rds")) %>%
+         str_detect(string = file, pattern = "rds"),
+         str_detect(string = file, pattern = "single")) %>%
   filter(str_detect(string = file, pattern = "wcde-")) %>%
   filter(str_detect(string = file, pattern = "wcde-v3")) %>%
   mutate(file = as.character(file),
