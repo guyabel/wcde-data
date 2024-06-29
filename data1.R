@@ -28,6 +28,9 @@ d0 <- d %>%
 d0 <- d0 %>%
   filter(v == "wcde-v3-single")
 
+# d0 <- d0 %>%
+#   filter(i %in% c("asfr", "tfr", "easfr", "etfr"))
+
 ##
 ## create batch directories
 ##

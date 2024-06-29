@@ -14,12 +14,15 @@ dimen <- read_excel("../wcde-shiny/meta/dimension.xlsx")
 
 # d <- unzip(zipfile = "./data-raw/wcde3_v13_1dec2023.zip", list = TRUE) %>%
 d <- unzip(zipfile = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip", list = TRUE) %>%
+# d <- unzip(zipfile = "C://Users//Guy//Downloads//tfr.zip", list = TRUE) %>%
   as_tibble() %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = ".rda"),
          str_detect(string = file, pattern = "df"),
          str_detect(string = file, pattern = "flow", negate = TRUE)) %>%
-  mutate(i = str_sub(string = file, start = 10, end = -5),
+  mutate(
+         # i = str_sub(string = file, start = 10, end = -5),
+         i = str_sub(string = file, start = 4, end = -5),
          s = case_when(
            str_detect(string = file, pattern = "df1") ~ 2,
            str_detect(string = file, pattern = "df2") ~ 1,
@@ -82,6 +85,7 @@ for(i in 1:nrow(d)){
     d1a <- d1_sage
 
   d0 <- unz(description = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip",
+            # description = "C://Users//Guy//Downloads//tfr.zip",
             filename = d$file[i]) %>%
     loading() %>%
     as_tibble()
