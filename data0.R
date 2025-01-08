@@ -17,14 +17,18 @@ e <- dir_ls(recurse = 3) %>%
          str_detect(string = file, pattern = "rds"),
          str_detect(string = file, pattern = "single")) %>%
   filter(str_detect(string = file, pattern = "wcde-")) %>%
-  filter(str_detect(string = file, pattern = "wcde-v3")) %>%
+  # filter(str_detect(string = file, pattern = "wcde-v3")) %>%
+  filter(str_detect(string = file, pattern = "wcde-v31")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
-         s = str_sub(string = path, start = 15, end = 17),
+         # s = str_sub(string = path, start = 15, end = 17),
+         s = str_sub(string = path, start = 16, end = 18),
          s = str_remove_all(string = s, pattern = "\\/"),
          d0 = map(.x = file, .f = ~readRDS(.x)),
-         version = str_sub(string = file, end = 7)) %>%
+         # version = str_sub(string = file, end = 7)
+         version = str_sub(string = file, end = 8)
+         ) %>%
   group_by(version, s, path) %>%
   summarize(d1 = list(reduce(d0, bind_cols)))
 
@@ -39,15 +43,19 @@ p <- dir_ls(recurse = 3) %>%
          str_detect(string = file, pattern = "epop", negate = TRUE),
          str_detect(string = file, pattern = "pop-", negate = TRUE),
          str_detect(string = file, pattern = "batch", negate = TRUE)) %>%
-  filter(str_detect(string = file, pattern = "v3")) %>%
+  # filter(str_detect(string = file, pattern = "v3")) %>%
+  filter(str_detect(string = file, pattern = "v31")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
-         s = str_sub(string = path, start = 15, end = 17),
+         # s = str_sub(string = path, start = 15, end = 17),
+         s = str_sub(string = path, start = 16, end = 18),
          s = str_remove(string = s, pattern = "\\/"),
          s = str_remove_all(string = s, pattern = "\\/"),
          d0 = map(.x = file, .f = ~readRDS(.x)),
-         version = str_sub(string = file, end = 7)) %>%
+         # version = str_sub(string = file, end = 7)
+         version = str_sub(string = file, end = 8)
+         ) %>%
   group_by(version, s, path) %>%
   summarize(d1 = list(reduce(d0, bind_cols)))
 
@@ -170,5 +178,6 @@ for(i in 1:nrow(p)){
 library(fs)
 # dir_info(path = "./wcde-v1-single/", recurse = TRUE, type = "file") %>%
 # dir_info(path = "./wcde-v2-single/", recurse = TRUE, type = "file") %>%
-dir_info(path = "./wcde-v3-single/", recurse = TRUE, type = "file") %>%
+# dir_info(path = "./wcde-v3-single/", recurse = TRUE, type = "file") %>%
+dir_info(path = "./wcde-v31-single/", recurse = TRUE, type = "file") %>%
   arrange(size)
