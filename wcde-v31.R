@@ -15,7 +15,8 @@ dimen <- read_excel("../wcde-shiny/meta/dimension.xlsx")
 # d <- unzip(zipfile = "./data-raw/wcde3_v13_1dec2023.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C://Users//Guy//Downloads//tfr.zip", list = TRUE) %>%
-d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip", list = TRUE) %>%
+# d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip", list = TRUE) %>%
+d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip", list = TRUE) %>%
   as_tibble() %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = ".rda"),
@@ -39,30 +40,34 @@ d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.z
 dir_create(path = d$dest)
 
 # dimen names
-d1_age <- dimen %>%
-  filter(dim == "age") %>%
-  select(code, name) %>%
-  rename(ageno = code, age = name)
+d1_age <- tibble(
+  ageno = 0:21,
+  age = c("All", paste0(0:20 * 5, "--", 0:20 * 5 + 4))
+) %>%
+  mutate(age = ifelse(ageno == 21, "100+", age))
 
-d1_bage <- dimen %>%
-  filter(dim == "bage") %>%
-  select(code, name) %>%
-  rename(ageno = code, age = name)
+d1_bage <- tibble(
+  ageno = 0:10,
+  age = c("All", "0--14", "0--19", "15+", "25+", "20--39", "40--64",
+          "60+", "65+", "80+", "20--64")
+)
 
-d1_sage <- dimen %>%
-  filter(dim == "sage") %>%
-  select(code, name) %>%
-  rename(ageno = code, age = name)
+d1_sage <- tibble(
+  ageno = 0:25,
+  age = c("Newborn", paste0(0:24 * 5, "--", 0:24 * 5 + 4))
+) %>%
+  mutate(age = ifelse(ageno == 25, "120+", age))
 
-d1_sex <- dimen %>%
-  filter(dim == "sex") %>%
-  select(code, name) %>%
-  rename(sexno = code, sex = name)
+d1_sex <- tibble(
+  sexno = 0:2,
+  sex = c("Both", "Male", "Female")
+)
 
-d1_edu <- dimen %>%
-  filter(dim == "edu") %>%
-  select(code, name) %>%
-  rename(eduno = code, edu = name)
+d1_edu <- tibble(
+  eduno = 0:10,
+  edu = c("Total", names(wcde::wic_col8)[1:6], "Post Secondary", names(wcde::wic_col8)[7:9])
+)
+
 
 loading <- function(rdata_file){
   # rdata_file = d0
@@ -85,7 +90,8 @@ for(i in 1:nrow(d)){
   if(i0$sage == 1)
     d1a <- d1_sage
 
-  d0 <- unz(description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip",
+  d0 <- unz(description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip",
+            #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip",
             #description = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip",
             # description = "C://Users//Guy//Downloads//tfr.zip",
             filename = d$file[i]) %>%
@@ -145,10 +151,13 @@ x <- dir_info("wcde-v31-single", recurse = TRUE, type = "file") %>%
          str_detect(string = f, pattern = "^age|^edu|^sex|^period|^year", negate = TRUE))
 x
 
-# copy from v3, those not in v31
-v3 <- dir_ls("wcde-v3-single", recurse = TRUE, type = "file")
+# what is in v30, not in v31
+v30 <- dir_ls("wcde-v30-single", recurse = TRUE, type = "file")
 v31 <- dir_ls("wcde-v31-single", recurse = TRUE, type = "file")
 
-setdiff(str_sub(string = v3, start = 16),
+setdiff(str_sub(string = v30, start = 17),
+        str_sub(string = v31, start = 17))
+
+setdiff(str_sub(string = v30, start = 17),
         str_sub(string = v31, start = 17)) %>%
   str_subset(pattern = "pop", negate = TRUE)

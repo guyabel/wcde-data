@@ -40,7 +40,8 @@ d2 <- d1 %>%
   rename_with(.fn = ~str_remove(.x, "no")) %>%
   pivot_longer(cols = -(1:3),
                names_to = c("dim", ".value"),
-               names_sep = "_")
+               names_sep = "_") %>%
+  distinct()
 
 d2 %>%
   filter(is.na(label)) %>%
@@ -55,5 +56,11 @@ d3 <- d2 %>%
             last_code = last(code))
 
 write_csv(d2, "./data/dim.csv")
+write_csv(d3, "./data/dim_limits.csv")
 # write_csv(d3, "./data/dim_limits.csv")
 
+x=
+d2 %>%
+  filter(dim == "edu",
+         i == "epop") %>%
+  distinct()
