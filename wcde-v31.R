@@ -16,7 +16,8 @@ dimen <- read_excel("../wcde-shiny/meta/dimension.xlsx")
 # d <- unzip(zipfile = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C://Users//Guy//Downloads//tfr.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip", list = TRUE) %>%
-d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip", list = TRUE) %>%
+# d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip", list = TRUE) %>%
+d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3.zip", list = TRUE) %>%
   as_tibble() %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = ".rda"),
@@ -90,7 +91,8 @@ for(i in 1:nrow(d)){
   if(i0$sage == 1)
     d1a <- d1_sage
 
-  d0 <- unz(description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip",
+  d0 <- unz(description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3.zip",
+    #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip",
             #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip",
             #description = "C:\\Users\\Guy\\Dropbox\\WCDE for Guy\\wcde3.zip",
             # description = "C://Users//Guy//Downloads//tfr.zip",
@@ -161,3 +163,12 @@ setdiff(str_sub(string = v30, start = 17),
 setdiff(str_sub(string = v30, start = 17),
         str_sub(string = v31, start = 17)) %>%
   str_subset(pattern = "pop", negate = TRUE)
+
+
+# v3x <- dir_ls("wcde-v3x-single", recurse = TRUE, type = "file")
+# setdiff(str_sub(string = v3x, start = 17),
+#         str_sub(string = v31, start = 17))
+#
+# setdiff(str_sub(string = v3x, start = 17),
+#         str_sub(string = v31, start = 17)) %>%
+#   str_subset(pattern = "pop", negate = TRUE)
