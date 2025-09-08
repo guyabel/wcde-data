@@ -18,7 +18,8 @@ e <- dir_ls(recurse = 3) %>%
          str_detect(string = file, pattern = "single")) %>%
   filter(str_detect(string = file, pattern = "wcde-")) %>%
   # filter(str_detect(string = file, pattern = "wcde-v3")) %>%
-  filter(str_detect(string = file, pattern = "wcde-v31")) %>%
+  # filter(str_detect(string = file, pattern = "wcde-v31")) %>%
+  filter(str_detect(string = file, pattern = "wcde-v32")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
@@ -44,7 +45,8 @@ p <- dir_ls(recurse = 3) %>%
          str_detect(string = file, pattern = "pop-", negate = TRUE),
          str_detect(string = file, pattern = "batch", negate = TRUE)) %>%
   # filter(str_detect(string = file, pattern = "v3")) %>%
-  filter(str_detect(string = file, pattern = "v31")) %>%
+  # filter(str_detect(string = file, pattern = "v31")) %>%
+  filter(str_detect(string = file, pattern = "v32")) %>%
   mutate(file = as.character(file),
          path = path_dir(file),
          path = path_dir(path),
@@ -179,5 +181,6 @@ library(fs)
 # dir_info(path = "./wcde-v1-single/", recurse = TRUE, type = "file") %>%
 # dir_info(path = "./wcde-v2-single/", recurse = TRUE, type = "file") %>%
 # dir_info(path = "./wcde-v3-single/", recurse = TRUE, type = "file") %>%
-dir_info(path = "./wcde-v31-single/", recurse = TRUE, type = "file") %>%
+# dir_info(path = "./wcde-v31-single/", recurse = TRUE, type = "file") %>%
+dir_info(path = "./wcde-v32-single/", recurse = TRUE, type = "file") %>%
   arrange(size)
