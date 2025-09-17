@@ -8,6 +8,12 @@
 library(tidyverse)
 library(fs)
 
-dir_copy("wcde-v31-batch", "wcde-v3-batch", overwrite = TRUE)
-dir_copy("wcde-v31-single", "wcde-v3-single", overwrite = TRUE)
+dir_delete("wcde-v3-batch")
+dir_delete("wcde-v3-single")
+
+# dir_copy("wcde-v31-batch", "wcde-v3-batch", overwrite = TRUE)
+# dir_copy("wcde-v31-single", "wcde-v3-single", overwrite = TRUE)
+
+dir_copy("wcde-v32-batch", "wcde-v3-batch", overwrite = TRUE)
+dir_copy("wcde-v32-single", "wcde-v3-single", overwrite = TRUE)
 
