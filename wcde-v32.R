@@ -17,7 +17,8 @@ dimen <- read_excel("../wcde-shiny/meta/dimension.xlsx")
 # d <- unzip(zipfile = "C://Users//Guy//Downloads//tfr.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip", list = TRUE) %>%
 # d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip", list = TRUE) %>%
-d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\merged.zip", list = TRUE) %>%
+# d <- unzip(zipfile = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\merged.zip", list = TRUE) %>%
+d <- unzip(zipfile = "C:\\Users\\Guy\\OneDrive - IIASA\\merged.zip", list = TRUE) %>%
   as_tibble() %>%
   rename(file = 1) %>%
   filter(str_detect(string = file, pattern = ".rda"),
@@ -91,7 +92,8 @@ for(i in 1:nrow(d)){
   if(i0$sage == 1)
     d1a <- d1_sage
 
-  d0 <- unz(description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\merged.zip",
+  d0 <- unz(description = "C:\\Users\\Guy\\OneDrive - IIASA\\merged.zip",
+            #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\merged.zip",
             #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3.zip",
             #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_v14_share_toguy.zip",
             #description = "C:\\Users\\Guy Abel\\OneDrive - IIASA\\wcde3_18122024_e8.zip",
@@ -175,8 +177,8 @@ setdiff(str_sub(string = v31, start = 17),
   unique()
 
 no_past <- v31 %>%
-  str_subset(paste0(ind$name[ind$past == 0], collapse = "|")) 
-  
+  str_subset(paste0(ind$name[ind$past == 0], collapse = "|"))
+
 # create dir
 str_replace_all(no_past, pattern = "v31", replacement = "v32") %>%
   str_extract("^.*/(?=[^/]*$)") %>%
