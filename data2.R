@@ -14,6 +14,8 @@ dir_delete("wcde-v3-single")
 # dir_copy("wcde-v31-batch", "wcde-v3-batch", overwrite = TRUE)
 # dir_copy("wcde-v31-single", "wcde-v3-single", overwrite = TRUE)
 
-dir_copy("wcde-v32-batch", "wcde-v3-batch", overwrite = TRUE)
-dir_copy("wcde-v32-single", "wcde-v3-single", overwrite = TRUE)
+# dir_copy("wcde-v32-batch", "wcde-v3-batch", overwrite = TRUE)
+# dir_copy("wcde-v32-single", "wcde-v3-single", overwrite = TRUE)
 
+dir_copy("wcde-v33-batch", "wcde-v3-batch", overwrite = TRUE)
+dir_copy("wcde-v33-single", "wcde-v3-single", overwrite = TRUE)
